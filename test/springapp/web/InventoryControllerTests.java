@@ -1,9 +1,11 @@
 package springapp.web;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.springframework.web.servlet.ModelAndView;
-
+import springapp.domain.Product;
+import springapp.repository.InMemoryProductDao;
 import springapp.service.SimpleProductManager;
 import springapp.web.InventoryController;
 
@@ -13,7 +15,11 @@ public class InventoryControllerTests extends TestCase {
 
     public void testHandleRequestView() throws Exception{		
         InventoryController controller = new InventoryController();
-        controller.setProductManager(new SimpleProductManager());
+        
+        SimpleProductManager spm = new SimpleProductManager();
+        spm.setProductDao(new InMemoryProductDao(new ArrayList<Product>()));
+        controller.setProductManager(spm);
+        //controller.setProductManager(new SimpleProductManager());        
         ModelAndView modelAndView = controller.handleRequest(null, null);		
         assertEquals("hello", modelAndView.getViewName());
         assertNotNull(modelAndView.getModel());
