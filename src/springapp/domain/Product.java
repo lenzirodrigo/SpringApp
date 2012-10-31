@@ -5,8 +5,17 @@ import java.io.Serializable;
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String description;
+    private int id;
+    private String description;
     private Double price;
+    
+    public void setId(int i) {
+        id = i;
+    }
+
+    public int getId() {
+        return id;
+    }
     
     public String getDescription() {
         return description;
